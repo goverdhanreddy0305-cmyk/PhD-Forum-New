@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PhD Aspirants Forum - NK Doctoral Advisory</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: #f5f7fa;
+            padding: 20px;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        /* Header */
+        .header {
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 28px;
+            color: #0B3D91;
+            margin-bottom: 8px;
+        }
+
+        .header p {
+            color: #666;
+            font-size: 14px;
+        }
+
+        /* Form Section */
+        .form-section {
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-section h2 {
+            font-size: 18px;
+            color: #0B3D91;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #D4AF37;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: bold;
+            color: #0B3D91;
+            margin-bottom: 8px;
+            font-size: 13px;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 4px;
+            font-size: 14px;
+            font-family: Arial, sans-serif;
+            transition: border-color 0.3s;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #0B3D91;
+            box-shadow: 0 0 5px rgba(11, 61, 145, 0.1);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+
+        .required {
+            color: #d32f2f;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .submit-btn {
+            background: linear-gradient(135deg, #0B3D91 0%, #051C47 100%);
+            color: white;
+            padding: 12px 32px;
+            border: none;
+            border-radius: 6px;
+            font-weight: bold;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(11, 61, 145, 0.3);
+        }
+
+        /* Responses Section */
+        .responses-section {
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .responses-section h2 {
+            font-size: 18px;
+            color: #0B3D91;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #D4AF37;
+        }
+
+        .responses-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .response-count {
+            background: #0B3D91;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .export-btn {
+            background: #D4AF37;
+            color: #0B3D91;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            font-weight: bold;
+            font-size: 13px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .export-btn:hover {
+            background: #F4C56E;
+            transform: translateY(-2px);
+        }
+
+        /* Table */
+        .responses-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+            overflow-x: auto;
+            display: block;
+        }
+
+        .responses-table thead {
+            background: #f0f6ff;
+        }
+
+        .responses-table th {
+            padding: 12px;
+            text-align: left;
+            color: #0B3D91;
+            font-weight: bold;
+            border-bottom: 2px solid #0B3D91;
+            font-size: 12px;
+        }
+
+        .responses-table td {
+            padding: 12px;
+            border-bottom: 1px solid #e0e0e0;
+            font-size: 13px;
+            color: #333;
+        }
+
+        .responses-table tbody tr:hover {
+            background: #f9f9f9;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 40px;
+            color: #999;
+        }
+
+        .empty-state p {
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+
+        .delete-btn {
+            background: #ff6b6b;
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 12px;
+            transition: all 0.3s ease;
+        }
+
+        .delete-btn:hover {
+            background: #ff5252;
+        }
+
+        .success-message {
+            background: #4caf50;
+            color: white;
+            padding: 12px;
+            border-radius: 4px;
+            margin-bottom: 20px;
+            display: none;
+        }
+
+        .success-message.show {
+            display: block;
+            animation: slideIn 0.3s ease;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+
+            .responses-table {
+                font-size: 12px;
+            }
+
+            .responses-table th,
+            .responses-table td {
+                padding: 8px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1>PhD Aspirants Forum</h1>
+            <p>Join our community of aspiring doctoral researchers</p>
+        </div>
+
+        <!-- Registration Form -->
+        <div class="form-section">
+            <h2>Register Your Interest</h2>
+            <div class="success-message" id="successMessage">✓ Thank you! Your information has been recorded.</div>
+
+            <form id="registrationForm">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="firstName">First Name <span class="required">*</span></label>
+                        <input type="text" id="firstName" name="firstName" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="lastName">Last Name <span class="required">*</span></label>
+                        <input type="text" id="lastName" name="lastName" required>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="email">Email Address <span class="required">*</span></label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Phone Number (Optional)</label>
+                        <input type="tel" id="phone" name="phone">
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="country">Country <span class="required">*</span></label>
+                        <input type="text" id="country" name="country" placeholder="e.g., India, USA, UK" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="currentStatus">Current Status <span class="required">*</span></label>
+                        <select id="currentStatus" name="currentStatus" required>
+                            <option value="">-- Select Status --</option>
+                            <option value="Undergraduate">Undergraduate Student</option>
+                            <option value="Recent Graduate">Recent Graduate</option>
+                            <option value="Working Professional">Working Professional</option>
+                            <option value="Master's Student">Master's Student</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="phdInterests">PhD Field of Interest <span class="required">*</span></label>
+                    <textarea id="phdInterests" name="phdInterests" placeholder="e.g., Computer Science, Biological Sciences, etc." required></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="timeline">When do you plan to apply for PhD? <span class="required">*</span></label>
+                    <select id="timeline" name="timeline" required>
+                        <option value="">-- Select Timeline --</option>
+                        <option value="Within 6 months">Within 6 months</option>
+                        <option value="6-12 months">6-12 months</option>
+                        <option value="1-2 years">1-2 years</option>
+                        <option value="2+ years">2+ years</option>
+                        <option value="Not sure yet">Not sure yet</option>
+                    </select>
+                </div>
+
+                <button type="submit" class="submit-btn">Submit Registration</button>
+            </form>
+        </div>
+
+        <!-- Responses Section -->
+        <div class="responses-section">
+            <div class="responses-header">
+                <h2>Registered Aspirants</h2>
+                <button class="export-btn" onclick="exportToCSV()">Export as CSV</button>
+            </div>
+
+            <div class="response-count">
+                Total Registrations: <span id="responseCount">0</span>
+            </div>
+
+            <table class="responses-table" id="responsesTable">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Phone</th>
+                        <th>Country</th>
+                        <th>Status</th>
+                        <th>PhD Interest</th>
+                        <th>Timeline</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody id="responsesBody">
+                    <tr class="empty-state">
+                        <td colspan="8">
+                            <p>No registrations yet. Start registering above!</p>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        // Load data from localStorage
+        function loadResponses() {
+            const responses = JSON.parse(localStorage.getItem('phdResponses') || '[]');
+            displayResponses(responses);
+        }
+
+        // Display responses in table
+        function displayResponses(responses) {
+            const tbody = document.getElementById('responsesBody');
+            const count = document.getElementById('responseCount');
+
+            if (responses.length === 0) {
+                tbody.innerHTML = '<tr class="empty-state"><td colspan="8"><p>No registrations yet. Start registering above!</p></td></tr>';
+                count.textContent = '0';
+                return;
+            }
+
+            tbody.innerHTML = responses.map((response, index) => `
+                <tr>
+                    <td>${escapeHtml(response.firstName)} ${escapeHtml(response.lastName)}</td>
+                    <td>${escapeHtml(response.email)}</td>
+                    <td>${escapeHtml(response.phone || '-')}</td>
+                    <td>${escapeHtml(response.country)}</td>
+                    <td>${escapeHtml(response.currentStatus)}</td>
+                    <td>${escapeHtml(response.phdInterests)}</td>
+                    <td>${escapeHtml(response.timeline)}</td>
+                    <td><button class="delete-btn" onclick="deleteResponse(${index})">Delete</button></td>
+                </tr>
+            `).join('');
+
+            count.textContent = responses.length;
+        }
+
+        // Delete a response
+        function deleteResponse(index) {
+            if (confirm('Are you sure you want to delete this registration?')) {
+                const responses = JSON.parse(localStorage.getItem('phdResponses') || '[]');
+                responses.splice(index, 1);
+                localStorage.setItem('phdResponses', JSON.stringify(responses));
+                loadResponses();
+            }
+        }
+
+        // Export to CSV
+        function exportToCSV() {
+            const responses = JSON.parse(localStorage.getItem('phdResponses') || '[]');
+
+            if (responses.length === 0) {
+                alert('No data to export');
+                return;
+            }
+
+            const headers = ['First Name', 'Last Name', 'Email', 'Phone', 'Country', 'Status', 'PhD Interest', 'Timeline'];
+            const rows = responses.map(r => [
+                r.firstName,
+                r.lastName,
+                r.email,
+                r.phone || '',
+                r.country,
+                r.currentStatus,
+                r.phdInterests,
+                r.timeline
+            ]);
+
+            let csv = headers.join(',') + '\n';
+            rows.forEach(row => {
+                csv += row.map(cell => `"${cell}"`).join(',') + '\n';
+            });
+
+            const blob = new Blob([csv], { type: 'text/csv' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'phd_aspirants_' + new Date().toISOString().split('T')[0] + '.csv';
+            a.click();
+            window.URL.revokeObjectURL(url);
+        }
+
+        // Escape HTML to prevent XSS
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        // Handle form submission
+        document.getElementById('registrationForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const formData = {
+                firstName: document.getElementById('firstName').value,
+                lastName: document.getElementById('lastName').value,
+                email: document.getElementById('email').value,
+                phone: document.getElementById('phone').value,
+                country: document.getElementById('country').value,
+                currentStatus: document.getElementById('currentStatus').value,
+                phdInterests: document.getElementById('phdInterests').value,
+                timeline: document.getElementById('timeline').value,
+                timestamp: new Date().toLocaleString()
+            };
+
+            const responses = JSON.parse(localStorage.getItem('phdResponses') || '[]');
+            responses.push(formData);
+            localStorage.setItem('phdResponses', JSON.stringify(responses));
+
+            // Show success message
+            const successMsg = document.getElementById('successMessage');
+            successMsg.classList.add('show');
+            setTimeout(() => {
+                successMsg.classList.remove('show');
+            }, 3000);
+
+            // Reset form
+            this.reset();
+
+            // Reload responses
+            loadResponses();
+        });
+
+        // Load responses on page load
+        loadResponses();
+    </script>
+</body>
+</html>
